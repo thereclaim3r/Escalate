@@ -19,6 +19,10 @@ export class AuthService {
     return this.token;
   }
 
+  getEmail() {
+    return this.getAuthData().userEmail;
+  }
+
   getIsAuth() {
     return this.isAuthenticated;
   }
@@ -65,7 +69,7 @@ export class AuthService {
             const expirationDate = new Date(
               now.getTime() + expiresInDuration * 1000
             );
-            this.saveAuthData(token, expirationDate, this.userId);
+            this.saveAuthData(token, expirationDate, this.userId, this.userEmail);
             this.router.navigate(["/"]);
           }
         },
@@ -107,29 +111,33 @@ export class AuthService {
     }, duration * 1000);
   }
 
-  private saveAuthData(token: string, expirationDate: Date, userId: string) {
+  private saveAuthData(token: string, expirationDate: Date, userId: string, userEmail:string) {
     localStorage.setItem("token", token);
     localStorage.setItem("expiration", expirationDate.toISOString());
     localStorage.setItem("userId", userId);
+    localStorage.setItem("userEmail", userEmail);
   }
 
   private clearAuthData() {
     localStorage.removeItem("token");
     localStorage.removeItem("expiration");
     localStorage.removeItem("userId");
+    localStorage.removeItem("userEmail");
   }
 
   private getAuthData() {
     const token = localStorage.getItem("token");
     const expirationDate = localStorage.getItem("expiration");
     const userId = localStorage.getItem("userId");
+    const userEmail = localStorage.getItem("userEmail");
     if (!token || !expirationDate) {
       return;
     }
     return {
       token: token,
       expirationDate: new Date(expirationDate),
-      userId: userId
+      userId: userId,
+      userEmail: userEmail
     };
   }
 }

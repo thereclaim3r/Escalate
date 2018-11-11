@@ -5,6 +5,9 @@
   <span class="spacer"></span>
   <ul>
     <li *ngIf="userIsAuthenticated">
+      Hi, {{ email }}
+    </li>
+    <li *ngIf="userIsAuthenticated">
       <a mat-button routerLink="/create" routerLinkActive="mat-accent">New Issue</a>
     </li>
     <li *ngIf="!userIsAuthenticated">

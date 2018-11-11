@@ -9,7 +9,7 @@ const app = express();
 
 mongoose
   .connect(
-    "*api-key-goes-here*",
+    "mongodb+srv://admin:admin@mean-fvnrj.mongodb.net/test?retryWrites=true",
     { useNewUrlParser: true }
   )
   .then(() => {
